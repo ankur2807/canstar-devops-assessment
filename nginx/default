@@ -4,7 +4,11 @@ server {
     server_name _;
 
     location / {
-        try_files $uri /now/index.html;
+        if ($uri = /index.html) {
+            rewrite ^ /now permanent;
+        }
+
+        try_files $uri $uri/ /now/index.html;
     }
 
     location /now {
